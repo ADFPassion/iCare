@@ -1,14 +1,15 @@
 package app.com.icare.controllers.user;
 
 
-import app.com.icare.models.Role;
 import app.com.icare.models.User;
 import app.com.icare.services.roles.RoleService;
 import app.com.icare.services.users.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -24,10 +25,13 @@ public class UserController {
         this.roleService = roleService;
     }
 
-    // Get all users
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.findAll();
+    public ResponseEntity<Page<User>> getAllUsers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<User> users = userService.findAll(pageable);
+        return ResponseEntity.ok(users);
     }
 
     // Get user by ID

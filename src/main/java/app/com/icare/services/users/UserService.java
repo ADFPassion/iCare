@@ -2,9 +2,10 @@ package app.com.icare.services.users;
 
 import app.com.icare.models.User;
 import app.com.icare.records.UserRecord;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
@@ -13,7 +14,7 @@ public interface UserService {
 
     User findByUsername(String username);
 
-    List<User> findAll();
+    Page<User> findAll(Pageable pageable);
 
     Optional<User> findByUserId(int userId);
 

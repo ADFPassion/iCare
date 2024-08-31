@@ -5,15 +5,14 @@ import app.com.icare.models.User;
 import app.com.icare.records.UserRecord;
 import app.com.icare.repositories.role.RoleRepository;
 import app.com.icare.repositories.user.UserRepository;
-import app.com.icare.services.roles.RoleService;
-import app.com.icare.services.roles.RoleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -84,9 +83,9 @@ public class UserServiceImpl implements UserService {
         return this.userRepository.findByusername(username);
     }
 
-    public List<User> findAll() {
+    public Page<User> findAll(Pageable pageable) {
 
-        return userRepository.findAll();
+        return userRepository.findAll(pageable);
     }
 
     @Override
