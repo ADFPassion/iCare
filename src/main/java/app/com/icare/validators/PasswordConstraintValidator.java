@@ -10,7 +10,7 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
     public PasswordConstraintValidator() {
     }
 
-    private static final String PASSWORD_PATTERN = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=])[A-Za-z\\d@#$%^&+=]{8,}$";
+    private static final String PASSWORD_PATTERN = "^(?=.*[A-Z])(?=.*\\d)(?=.*[!\"#$%&'()*+,-./:;<=>?@\\[\\]\\\\^_`{|}~]).{8,}$";
 
     private final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
 

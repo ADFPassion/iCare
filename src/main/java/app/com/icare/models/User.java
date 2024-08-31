@@ -29,7 +29,7 @@ public class User {
     @Column(name = "last_login")
     private Instant lastLogin;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "role_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Role role;

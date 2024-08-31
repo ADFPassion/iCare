@@ -2,6 +2,7 @@ package app.com.icare.services.users;
 
 import app.com.icare.models.User;
 import app.com.icare.records.UserRecord;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,4 +22,5 @@ public interface UserService {
     User save(User user);
 
     void delete(User user);
+    ResponseEntity<User> updateUser(User user);
 }

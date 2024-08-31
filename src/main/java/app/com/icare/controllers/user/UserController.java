@@ -45,17 +45,6 @@ public class UserController {
     @PostMapping
     public User createUser(@RequestBody User user) {
 
-        if (user.getRole() != null) {
-            Optional<Role> role = roleService.findRoleById(user.getRole().getId());
-            if (role.isEmpty()) {
-                Role newRole = new Role();
-                newRole.setName(user.getRole().getName());
-                roleService.saveRole(newRole);
-                user.setRole(newRole);
-            } else {
-                user.setRole(role.get());
-            }
-        }
 
         return userService.save(user);
     }
@@ -66,24 +55,8 @@ public class UserController {
     public ResponseEntity<User> updateUser(@PathVariable(value = "id") int userId, @RequestBody User userDetails) {
         Optional<User> user = userService.findByUserId(userId);
         if (user.isPresent()) {
-            User updatedUser = user.get();
-            updatedUser.setUsername(userDetails.getUsername());
-            updatedUser.setPasswordHash(userDetails.getPasswordHash());
-            updatedUser.setLastLogin(userDetails.getLastLogin());
-            // Fetch the Role from the database to avoid the detached entity issue
-            if (userDetails.getRole() != null) {
-                Optional<Role> role = roleService.findRoleById(userDetails.getRole().getId());
-                if (role.isEmpty()) {
-                    Role newRole = new Role();
-                    newRole.setName(userDetails.getRole().getName());
-                    roleService.saveRole(newRole);
-                    updatedUser.setRole(newRole);
-                } else {
-                    updatedUser.setRole(role.get());
-                }
-            }
-            return ResponseEntity.ok(userService.save(updatedUser));
-        } else {
+          return  this.userService.updateUser(userDetails);
+        }else{
             return ResponseEntity.notFound().build();
         }
     }
